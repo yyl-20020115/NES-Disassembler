@@ -75,6 +75,25 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    int pc = 0;
+    while (pc < rom_size) {
+        uint8_t opcode = program[pc];
+        Opcode op = opcodes[opcode];
+
+        fprintf(output, "%04X ", pc);
+
+        if (op.bytes == 1) {
+            fprintf(output, op.name);
+        } else if (op.bytes == 2) {
+            fprintf(output, op.name, program[pc + 1]);
+        } else if (op.bytes == 3) {
+            fprintf(output, op.name, program[pc + 2] << 8 | program[pc + 1]);
+        }
+
+        fprintf(output, "\n");
+        pc += op.bytes;
+    }
+
     free(program);
     fclose(output);
 
