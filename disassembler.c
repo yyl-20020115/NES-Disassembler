@@ -45,13 +45,13 @@ Opcode opcodes[256] = {
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "Uso: %s <arquivo_rom.nes>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <rom.nes>\n", argv[0]);
         return 1;
     }
 
     FILE *rom_file = fopen(argv[1], "rb");
     if (rom_file == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo: %s\n", argv[1]);
+        fprintf(stderr, "Error opening file: %s\n", argv[1]);
         return 1;
     }
 
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     uint8_t *program = (uint8_t *)malloc(rom_size);
     if (program == NULL) {
-        fprintf(stderr, "Erro ao alocar memória para a ROM.\n");
+        fprintf(stderr, "Error allocating memory for ROM.\n");
         fclose(rom_file);
         return 1;
     }
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 
     FILE *output = fopen("output.asm", "w");
     if (output == NULL) {
-        fprintf(stderr, "Erro ao criar o arquivo .asm\n");
+        fprintf(stderr, "Error creating .asm file\n");
         free(program);
         return 1;
     }
@@ -97,6 +97,6 @@ int main(int argc, char *argv[]) {
     free(program);
     fclose(output);
 
-    printf("Arquivo output.asm gerado com sucesso!\n");
+    printf("Output.asm file generated successfully!\n");
     return 0;
 }
